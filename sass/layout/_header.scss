@@ -1,0 +1,66 @@
+.header {
+  height: 85vh; /* 95% of the viewport height */
+
+  // using a hexa decimal color in rgba format only
+  // works in sass
+  background-image: linear-gradient(
+      to right,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+    url("../img/hero-small.jpg");
+  background-size: cover;
+  /* no matter what happens to view port the top of images always remains at the top */
+  background-position: top;
+  position: relative;
+
+  /* یک مربع را در نظر بگیر گوشه سمت چپ بالا رو بگیر نقطه رفرنس 
+  و نسبت به گوشه سمت چپ بالا مختصات را وارد کن */
+
+  @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    height: 95vh;
+  }
+
+  /* clip-path: polygon(0 0, 100% 50%, 0 100%); TRIANGLE */
+  /* clip-path: polygon(50% 0, 100% 100%, 0 100%); */
+  //the comma below is like or
+  @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
+    only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+    only screen and (min-width: 125em) {
+    background-image: linear-gradient(
+        to right,
+        rgba($color-primary-light, 0.8),
+        rgba($color-primary-dark, 0.8)
+      ),
+      url("../img/hero.jpg");
+  }
+
+  @include respond(phone) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+  }
+  &__logo-box {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+  }
+
+  &__logo {
+    /* Only specify the height and the width
+    will be automatically specified */
+    height: 35px;
+  }
+
+  &__text-box {
+    position: absolute;
+    /* in relation to the parent element */
+    top: 40%;
+    left: 50%;
+
+    /* in relation to the element itself */
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}
